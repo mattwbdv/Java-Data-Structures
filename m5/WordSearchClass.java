@@ -114,7 +114,7 @@ public class WordSearchClass implements WordSearchGame {
     }
 
     // needs work - open question, is wordSoFar right on line 124? | do I return
-    // path on line 108?
+    // path on line 126?
     public List<Integer> isOnBoard(String wordToCheck) {
         List<Int> path = new ArrayList<>();
 
