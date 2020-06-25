@@ -13,44 +13,44 @@ public class WordSearchClass implements WordSearchGame {
 
     public WordSearchClass() {
         dictionary = null;
-        // fallback board
-        boardDimensions = 4;
-        board = new String[boardDimensions][boardDimensions];
-        board[0][0] = "E";
-        board[0][1] = "E";
-        board[0][2] = "C";
-        board[0][3] = "A";
-        board[1][0] = "A";
-        board[1][1] = "L";
-        board[1][2] = "E";
-        board[1][3] = "P";
-        board[2][0] = "H";
-        board[2][1] = "N";
-        board[2][2] = "B";
-        board[2][3] = "O";
-        board[3][0] = "Q";
-        board[3][1] = "T";
-        board[3][2] = "T";
-        board[3][3] = "Y";
+        // // fallback board
+        // boardDimensions = 4;
+        // board = new String[boardDimensions][boardDimensions];
+        // board[0][0] = "E";
+        // board[0][1] = "E";
+        // board[0][2] = "C";
+        // board[0][3] = "A";
+        // board[1][0] = "A";
+        // board[1][1] = "L";
+        // board[1][2] = "E";
+        // board[1][3] = "P";
+        // board[2][0] = "H";
+        // board[2][1] = "N";
+        // board[2][2] = "B";
+        // board[2][3] = "O";
+        // board[3][0] = "Q";
+        // board[3][1] = "T";
+        // board[3][2] = "T";
+        // board[3][3] = "Y";
 
-        // fallback visited board tracker
-        boardVisited = new Boolean[boardDimensions][boardDimensions];
-        boardVisited[0][0] = false;
-        boardVisited[0][1] = false;
-        boardVisited[0][2] = false;
-        boardVisited[0][3] = false;
-        boardVisited[1][0] = false;
-        boardVisited[1][1] = false;
-        boardVisited[1][2] = false;
-        boardVisited[1][3] = false;
-        boardVisited[2][0] = false;
-        boardVisited[2][1] = false;
-        boardVisited[2][2] = false;
-        boardVisited[2][3] = false;
-        boardVisited[3][0] = false;
-        boardVisited[3][1] = false;
-        boardVisited[3][2] = false;
-        boardVisited[3][3] = false;
+        // // fallback visited board tracker
+        // boardVisited = new Boolean[boardDimensions][boardDimensions];
+        // boardVisited[0][0] = false;
+        // boardVisited[0][1] = false;
+        // boardVisited[0][2] = false;
+        // boardVisited[0][3] = false;
+        // boardVisited[1][0] = false;
+        // boardVisited[1][1] = false;
+        // boardVisited[1][2] = false;
+        // boardVisited[1][3] = false;
+        // boardVisited[2][0] = false;
+        // boardVisited[2][1] = false;
+        // boardVisited[2][2] = false;
+        // boardVisited[2][3] = false;
+        // boardVisited[3][0] = false;
+        // boardVisited[3][1] = false;
+        // boardVisited[3][2] = false;
+        // boardVisited[3][3] = false;
     }
 
     // completed, loads dictionary
@@ -136,9 +136,7 @@ public class WordSearchClass implements WordSearchGame {
 
     // depth first search
     private boolean DFSOneWord(int i, int j, StringBuilder wordSoFar, String wordToCheck, List<Integer> path) {
-
-        int stringLength = board[i][j].length();
-        if (board[i][j] == null) {
+        if (i < 0 || j < 0 || i > boardDimensions || j > boardDimensions) {
             return false;
         }
 
@@ -151,11 +149,14 @@ public class WordSearchClass implements WordSearchGame {
         }
 
         // Now we should visit and consider this position
+        int stringLength = board[i][j].toString().length();
+        int rowMajor = (i * boardDimensions) + j;
+
         boardVisited[i][j] = true; // mark as visited
 
         wordSoFar.append((board[i][j])); // add the contents of the current board position to wordSoFar
 
-        path.add(i * boardDimensions + j); // add the row-major number of the current board position to path;
+        path.add(rowMajor); // add the row-major number of the current board position to path;
 
         // is wordSoFar = wordToCheck? -- RETURN TRUE
         if (wordSoFar.equals(wordToCheck)) {
@@ -174,7 +175,8 @@ public class WordSearchClass implements WordSearchGame {
         // clean up and backtrack -- RETURN FALSE
         wordSoFar.delete(wordSoFar.length() - stringLength, wordSoFar.length()); // remove boardPosition contents from
                                                                                  // wordsofar
-        path.remove(i * boardDimensions + j); // remove row-major number from path
+
+        path.remove(Integer.valueOf(rowMajor)); // remove row-major number from path
         boardVisited[i][j] = false; // set the current board position as not visited
         return false;
 
