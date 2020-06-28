@@ -36,13 +36,7 @@ public class WordSearchClass implements WordSearchGame {
             for (int j = 0; j < boardDimensions; j++) {
                 wordSoFar = "";
 
-                // single letter words
-//                if (wordToCheck.equals(board[i][j])) { // MIGHT SUCK, word to check == char?
-//                    path.add((i * boardDimensions) + j);
-//                }
                 if ((wordToCheck.startsWith(board[i][j]))) { // if the contents of this position are a prefix
-//                    wordToCheck = board[i][j];
-//                    wordSoFar = board[i][j];
                     if (DFSOneWord(i, j, wordToCheck)) {
                         return path; // if depth first search -- RETURN PATH
                     }
@@ -98,10 +92,8 @@ public class WordSearchClass implements WordSearchGame {
         path.remove(Integer.valueOf(rowMajor)); // remove row-major number from path
         boardVisited[i][j] = false; // set the current board position as not visited
         return false;
-
     }
 
-    // POTENTIALLY COMPLETE
     public SortedSet<String> getAllValidWords(int minimumWordLength) {
         if (dictionary == null) {
             throw new IllegalStateException();
@@ -121,8 +113,6 @@ public class WordSearchClass implements WordSearchGame {
         }
         return answer;
     }
-
-    ////// COMPLETED METHODS /////////////
 
     // COMPLETED - gets the board in string format for the console
     public String getBoard() {
